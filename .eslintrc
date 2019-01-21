@@ -1,0 +1,33 @@
+{
+    "rules": {
+        "no-console": 0
+    },
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "ecmaFeatures": {
+        "modules": true,
+        "experimentalObjectRestSpread": true,
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "classes": true,
+        "defaultParameters": true,
+        "destructuring": true,
+        "forOf": true,
+        "generators": true,
+        "objectLiteralComputedProperties": true,
+        "objectLiteralDuplicateProperties": true,
+        "objectLiteralShorthandMethods": true,
+        "objectLiteralShorthandProperties": true,
+        "regexUFlag": true,
+        "regexYFlag": true,
+        "restParams": true,
+        "spread": true,
+        "superInFunctions": true,
+        "templateStrings": true,
+        "unicodeCodePointEscapes": true,
+        "globalReturn": true
+    },
+    "extends": "eslint:recommended"
+}

@@ -1,50 +1,61 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
-const todoSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    slug: {
-      type: String,
-      required: true,
-      lowercase: true,
-      unique: true
-    },
-    subtitle: {
-      type: String
-    },
-    finished: {
-      type: Boolean,
-      default: false
-    },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: "Users" }
+const todoSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true
   },
-  { timestamps: true }
-);
-
-const userSchema = new mongoose.Schema(
-  {
-    username: { type: String, unique: true, lowercase: true },
-    name: { type: String, required: true },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      validate: {
-        validator: validator.isEmail,
-        message: "{VALUE} is not an email"
-      }
-    },
-    password: { type: String, required: true }
+  slug: {
+    type: String,
+    required: true,
+    lowercase: true,
+    unique: true
   },
-  { timestamps: true }
-);
+  subtitle: {
+    type: String
+  },
+  finished: {
+    type: Boolean,
+    default: false
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users"
+  }
+}, {
+  timestamps: true
+});
 
-userSchema.methods.JSON = function() {
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    unique: true,
+    lowercase: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: validator.isEmail,
+      message: "{VALUE} is not an email"
+    }
+  },
+  password: {
+    type: String,
+    required: true
+  }
+}, {
+  timestamps: true
+});
+
+userSchema.methods.JSON = function () {
   return {
     username: this.username,
     email: this.email,
@@ -52,7 +63,7 @@ userSchema.methods.JSON = function() {
   };
 };
 
-todoSchema.methods.JSON = function() {
+todoSchema.methods.JSON = function () {
   return {
     title: this.title,
     slug: this.slug,
@@ -71,8 +82,8 @@ todoSchema.methods.JSON = function() {
 //     .catch(e => console.log(e));
 // };
 
-userSchema.methods.verify = function(password) {
-  return bcrypt.compare(password, this.password, function(err, res) {
+userSchema.methods.verify = function (password) {
+  return bcrypt.compare(password, this.password, function (err, res) {
     return res;
   });
 };
@@ -80,4 +91,7 @@ userSchema.methods.verify = function(password) {
 let User = mongoose.model("User", userSchema);
 let Todo = mongoose.model("Todo", todoSchema);
 
-module.exports = { Todo, User };
+module.exports = {
+  Todo,
+  User
+};
